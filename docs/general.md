@@ -8,28 +8,29 @@
     * Possible to implement username/password auth later?
 * What library to use for compression
 
-
-
 ## sources
 
-* Helpful video explanation: <https://www.youtube.com/watch?v=3VCN18PMVnw>
-* Contents api docs: <https://developer.github.com/v3/repos/contents/>
-* Helpful walkthrough: <https://gist.github.com/Detelca/2337731>
+* Helpful video explanation of below process for adding a file: <https://www.youtube.com/watch?v=3VCN18PMVnw>
+* Contents api docs (simplest way of adding file): <https://developer.github.com/v3/repos/contents/>
+* Helpful walkthrough of using egit to add a file: <https://gist.github.com/Detelca/2337731>
 * Camera2 overview: <https://www.youtube.com/watch?v=KhqGphh6KPE>
 
-## Notes
 
-### Planned external libraries
+## Planned external libraries
 
 * (Something for talking with Github API: (one of the following))
-    * org.eclipse.egit.github.core (only jar)
-    * JCabi (only jar, crashed on simple test)
+    * org.eclipse.egit.github.core
+    * JCabi (only jar, crashed on simple test) (might find grade dep.)
     * Volley (barebones)
-* CameraKit (but only does preview ??)
+* (Something to take images):
+    * Camera1 (haven't looked at yet)
+    * Camera2 (very advanced)
+    * CameraKit (convenient, but only does preview ??)
+    * Camera Intent (but cumbersome to get hold of taken images)
 * Gson
-* (Some image compression library)
+* (Some image compression library (??))
 
-### Quickest way to add a file:
+## Quickest way to add a file:
 
 "PUT https://api.github.com/repos/:user/:repo/contents/:path" with body: 
 
@@ -39,12 +40,10 @@
                 "name": "tholok97",
                 "email": "anemail"
             },
-            "content": "{{Base64 content}}"
+            "content": "{{base64 content}}"
         }
 
-
-
-### How to make commit
+## How to make commit
 
 * Get personal access token
 * Add personal access token to postman header "Authorization" with contents "token {{the-token}}"
