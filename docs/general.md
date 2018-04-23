@@ -7,6 +7,7 @@
     * Not sure how to authenticate using username/password..
     * Possible to implement username/password auth later?
 * What library to use for compression
+* Mock Github API? Or at the very least minimize requests during development.
 
 ## sources
 
@@ -14,6 +15,8 @@
 * Contents api docs (simplest way of adding file): <https://developer.github.com/v3/repos/contents/>
 * Helpful walkthrough of using egit to add a file: <https://gist.github.com/Detelca/2337731>
 * Camera2 overview: <https://www.youtube.com/watch?v=KhqGphh6KPE>
+* Camera Intent thread: <https://stackoverflow.com/questions/5991319/capture-image-from-camera-and-display-in-activity>
+* Walkthrough of Camera intent: <https://developer.android.com/training/camera/photobasics.html> 
 
 
 ## Planned external libraries
@@ -26,7 +29,7 @@
     * Camera1 (haven't looked at yet)
     * Camera2 (very advanced)
     * CameraKit (convenient, but only does preview ??)
-    * Camera Intent (but cumbersome to get hold of taken images)
+    * Camera Intent (but cumbersome to get hold of taken images) <-- but figured it out!
 * Gson
 * (Some image compression library (??))
 
