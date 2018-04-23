@@ -12,16 +12,21 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true">
 
             <!-- button for taking new picture -->
             <Button
+                android:id="@+id/b_takepicture"
                 android:text="Take picture"
+                android:onClick="onButtonClick"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <!-- preview of picture to be uploaded -->
             <ImageView
+                android:id="@+id/iw_preview"
                 android:layout_width="match_parent"
                 android:layout_height="400sp" />
 
