@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- to fill space -->
+    <TextView
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+    <!-- indicate that stuff is happening -->
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- to fill space -->
+    <TextView
+        android:layout_weight="2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+    <!--
+    AREA FOR SHOWING DATA THAT MIGHT BE INTERESTING DURING UPLOAD.
+    same data as shown in previous activity? (file size, ...)
+    -->
+    <TextView
+        android:text="Info about upload will show up here"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- to fill space -->
+    <TextView
+        android:layout_weight="2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+
+</android.support.v7.widget.LinearLayoutCompat>
