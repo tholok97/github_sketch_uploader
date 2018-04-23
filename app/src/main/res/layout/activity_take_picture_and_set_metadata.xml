@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- button for taking new picture -->
+            <Button
+                android:text="Take picture"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- preview of picture to be uploaded -->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="400sp" />
+
+            <!-- COMPRESSION OPTIONS -->
+            <!--
+            SHOW:
+            * current level of compression
+            * file size
+            * length of equivalent text document? (LOC?) (?)
+            GIVE OPTIONS TO:
+            * increase / decrease compression
+            * apply filter (hopefully. greyscale at least)
+            -->
+
+            <!-- PLACEHOLDER -->
+            <TextView
+                android:text="Compression options:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:text="COMPRESSION OPTIONS. MORE COMING"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- for spacing -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <!-- METADATA OPTIONS -->
+
+            <TextView
+                android:text="Metadata options:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:text="repository"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:text="branch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:text="file target"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- for spacing -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+
+            <!-- upload the thing! -->
+            <Button
+                android:text="Upload!"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+
+</android.support.v7.widget.LinearLayoutCompat>
