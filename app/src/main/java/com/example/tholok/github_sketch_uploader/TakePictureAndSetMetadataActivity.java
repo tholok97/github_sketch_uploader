@@ -11,11 +11,13 @@ import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -146,15 +148,39 @@ public class TakePictureAndSetMetadataActivity extends AppCompatActivity {
         // react on type of button that was clicked
         switch (view.getId()) {
 
-            // if takepicture pressed -> take picture
+            // take picture
             case R.id.b_takepicture:
                 dispatchTakePictureIntent();
+                break;
+
+            // upload
+            case R.id.b_upload:
+                dispatchUpload();
                 break;
 
             default:
                 Log.d(LOG_TAG, "Button without case pressed");
                 break;
         }
+    }
+
+    public void dispatchUpload() {
+
+        Log.d(LOG_TAG, "starting upload flow");
+
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath);
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
+        String base64PictureString = Base64.encodeToString(byteArray, Base64.DEFAULT);
+
+        Intent intent = new Intent(this, UploadActivity.class);
+        intent.putExtra(UploadActivity.BITMAP_EXTRA, base64PictureString);
+
+        startActivity(intent);
     }
 
 

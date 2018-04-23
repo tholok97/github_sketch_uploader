@@ -88,6 +88,8 @@
             <!-- upload the thing! -->
             <Button
                 android:text="Upload!"
+                android:onClick="onButtonClick"
+                android:id="@+id/b_upload"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
