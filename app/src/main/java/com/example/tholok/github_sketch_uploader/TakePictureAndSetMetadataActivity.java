@@ -38,6 +38,9 @@ public class TakePictureAndSetMetadataActivity extends AppCompatActivity {
 
         // set component properties
         imageView = (ImageView) findViewById(R.id.iw_preview);
+
+        // set placeholder pic
+        imageView.setImageResource(R.drawable.ic_launcher_background);
     }
 
 

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Taken from: https://developer.android.com/training/camera/photobasics.html -->
 <paths xmlns:android="http://schemas.android.com/apk/res/android">
     <external-path name="my_images" path="Android/data/com.example.tholok.github_sketch_uploader/files/Pictures" />
 </paths>

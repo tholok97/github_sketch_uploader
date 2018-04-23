@@ -18,7 +18,8 @@
             </intent-filter>
             -->
         </activity>
-        <activity android:name=".TakePictureAndSetMetadataActivity">
+        <activity android:name=".TakePictureAndSetMetadataActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
