@@ -28,7 +28,14 @@ import java.util.List;
 
 public class UploadActivity extends AppCompatActivity {
 
-    public static String BITMAP_EXTRA = "bitmap_extra";
+    public static String EXTRA_BITMAP_BASE64 = "extra_bitmap_base64";
+    public static String EXTRA_USERNAME = "extra_username";
+    public static String EXTRA_REPOSITORY = "extra_repository";
+    public static String EXTRA_TOKEN = "extra_token";
+    public static String EXTRA_PATH = "extra_path";
+    public static String EXTRA_BRANCH = "extra_branch";
+    public static String EXTRA_COMMIT_MESSAGE = "extra_commit_message";
+    public static String EXTRA_EMAIL = "extra_email";
 
     private static String LOG_TAG = "UploadActivity";
 
@@ -42,19 +49,16 @@ public class UploadActivity extends AppCompatActivity {
 
         if (b != null) {
 
-            // get encoded picture
-            String base64PictureString = b.getString(UploadActivity.BITMAP_EXTRA);
-
             new PushBase64PictureToRepositoryTask().execute(
-                    base64PictureString,
-                    "tholok97",
-                    "test",
-                    "THETOKENGOESHERE", // removed for adding into git
-                    "data/testtest.jpg",
-                    "BRANCH",
-                    "commit message",
-                    "thomahl@stud.ntnu.no",
-                    "tholok97"
+                    b.getString(UploadActivity.EXTRA_BITMAP_BASE64),
+                    b.getString(UploadActivity.EXTRA_USERNAME),
+                    b.getString(UploadActivity.EXTRA_REPOSITORY),
+                    b.getString(UploadActivity.EXTRA_TOKEN),
+                    b.getString(UploadActivity.EXTRA_PATH),
+                    b.getString(UploadActivity.EXTRA_BRANCH),
+                    b.getString(UploadActivity.EXTRA_COMMIT_MESSAGE),
+                    b.getString(UploadActivity.EXTRA_EMAIL),
+                    b.getString(UploadActivity.EXTRA_USERNAME)
             );
         } else {
             // should only be called with bundle..
@@ -156,14 +160,21 @@ public class UploadActivity extends AppCompatActivity {
 
                 // success
                 Log.d(LOG_TAG, "updating github");
+
+
+                // IF GOT HERE -> SUCCESS
+                // transition back to main screen
+
             } catch (Exception e) {
                 // error
                 e.printStackTrace();
                 Log.d(LOG_TAG, "error: " + e.getMessage());
+
+                // IF GOT HERE -> FAIL
+                // transition back to upload screen
+
+                finish();
             }
-
-
-
 
             return null;
         }

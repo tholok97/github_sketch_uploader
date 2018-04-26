@@ -29,4 +29,8 @@ dependencies {
     // library to interface with Github API.
     // More info: https://github.com/eclipse/egit-github/tree/master/org.eclipse.egit.github.core
     compile 'org.eclipse.mylyn.github:org.eclipse.egit.github.core:2.1.5'
+
+    // dependancy of above library
+    // NOT NEEDED? included here in case it turns out I need it later on
+    //compile 'com.google.code.gson:gson:2.8.2'
 }

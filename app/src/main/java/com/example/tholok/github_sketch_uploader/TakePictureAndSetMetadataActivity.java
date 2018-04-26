@@ -178,7 +178,17 @@ public class TakePictureAndSetMetadataActivity extends AppCompatActivity {
         String base64PictureString = Base64.encodeToString(byteArray, Base64.DEFAULT);
 
         Intent intent = new Intent(this, UploadActivity.class);
-        intent.putExtra(UploadActivity.BITMAP_EXTRA, base64PictureString);
+
+        // put extra data for github upload
+        intent.putExtra(UploadActivity.EXTRA_BITMAP_BASE64,     base64PictureString);
+        intent.putExtra(UploadActivity.EXTRA_USERNAME,          "tholok97");
+        intent.putExtra(UploadActivity.EXTRA_REPOSITORY,        "test");
+        intent.putExtra(UploadActivity.EXTRA_TOKEN,             "REMOVEDFORPUSH");
+        intent.putExtra(UploadActivity.EXTRA_PATH,              "data/test.jpg");
+        intent.putExtra(UploadActivity.EXTRA_BRANCH,            "branchtest");
+        intent.putExtra(UploadActivity.EXTRA_COMMIT_MESSAGE,    "a commit message ");
+        intent.putExtra(UploadActivity.EXTRA_EMAIL,             "thomahl@stud.ntnu.no");
+
 
         startActivity(intent);
     }
