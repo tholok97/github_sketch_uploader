@@ -24,11 +24,14 @@
 
     <!-- user access token input -->
     <EditText
+        android:id="@+id/et_token"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <!-- enter and test -->
     <Button
+        android:onClick="onButtonClick"
+        android:id="@+id/b_testandsave"
         android:text="test and save token"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -57,6 +60,7 @@
         android:layout_height="wrap_content" />
 
     <EditText
+        android:id="@+id/et_folder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -67,6 +71,7 @@
         android:layout_height="wrap_content" />
 
     <EditText
+        android:id="@+id/et_commitmessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -77,6 +82,18 @@
         android:layout_height="wrap_content" />
 
     <EditText
+        android:id="@+id/et_repository"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- repository -->
+    <TextView
+        android:text="Branch:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/et_branch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -85,6 +102,8 @@
 
     <!-- save defaults -->
     <Button
+        android:id="@+id/b_savedefaults"
+        android:onClick="onButtonClick"
         android:text="save defaults"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
