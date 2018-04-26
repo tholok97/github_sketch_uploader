@@ -189,7 +189,6 @@ public class TakePictureAndSetMetadataActivity extends AppCompatActivity {
         intent.putExtra(UploadActivity.EXTRA_COMMIT_MESSAGE,    "a commit message ");
         intent.putExtra(UploadActivity.EXTRA_EMAIL,             "thomahl@stud.ntnu.no");
 
-
         startActivity(intent);
     }
 

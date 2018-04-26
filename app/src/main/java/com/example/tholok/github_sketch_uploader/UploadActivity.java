@@ -165,6 +165,15 @@ public class UploadActivity extends AppCompatActivity {
                 // IF GOT HERE -> SUCCESS
                 // transition back to main screen
 
+
+                Intent intent = new Intent(UploadActivity.this, MainActivity.class);
+
+                // set flags to wipe history
+                // taken from: https://stackoverflow.com/questions/3473168/clear-the-entire-history-stack-and-start-a-new-activity-on-android
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                startActivity(intent);
+
             } catch (Exception e) {
                 // error
                 e.printStackTrace();
