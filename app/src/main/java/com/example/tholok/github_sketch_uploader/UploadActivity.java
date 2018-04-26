@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.eclipse.egit.github.core.Blob;
 import org.eclipse.egit.github.core.Commit;
@@ -81,19 +82,22 @@ public class UploadActivity extends AppCompatActivity {
      */
     private class PushBase64PictureToRepositoryTask extends AsyncTask<String, Void, Void> {
 
+        boolean success = false;
+        String errorMsg = "";
+
         @Override
         protected Void doInBackground(String... strings) {
 
             // put passed parameters into variables
-            String base64PictureString  = strings[0];
-            String user                 = strings[1];
-            String repositoryName       = strings[2];
-            String token                = strings[3];
-            String targetPath           = strings[4];
-            String targetBranch         = strings[5];
-            String commitMessage        = strings[6];
-            String committerEmail       = strings[7];
-            String committerUsername    = strings[8];
+            String base64PictureString = strings[0];
+            String user = strings[1];
+            String repositoryName = strings[2];
+            String token = strings[3];
+            String targetPath = strings[4];
+            String targetBranch = strings[5];
+            String commitMessage = strings[6];
+            String committerEmail = strings[7];
+            String committerUsername = strings[8];
 
             try {
 
@@ -111,7 +115,7 @@ public class UploadActivity extends AppCompatActivity {
                 DataService dataService = new DataService(client);
 
                 // get some sha's from current state in git
-                Repository repository =  repositoryService.getRepository(user, repositoryName);
+                Repository repository = repositoryService.getRepository(user, repositoryName);
                 String baseCommitSha = repositoryService.getBranches(repository).get(0).getCommit().getSha();
                 RepositoryCommit baseCommit = commitService.getCommit(repository, baseCommitSha);
                 String treeSha = baseCommit.getSha();
@@ -165,6 +169,28 @@ public class UploadActivity extends AppCompatActivity {
                 // IF GOT HERE -> SUCCESS
                 // transition back to main screen
 
+                success = true;
+
+
+            } catch (Exception e) {
+                // error
+                e.printStackTrace();
+                Log.d(LOG_TAG, "error: " + e.getMessage());
+
+                success = false;
+
+                errorMsg = e.getMessage();
+
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            if (success) {
 
                 Intent intent = new Intent(UploadActivity.this, MainActivity.class);
 
@@ -172,20 +198,23 @@ public class UploadActivity extends AppCompatActivity {
                 // taken from: https://stackoverflow.com/questions/3473168/clear-the-entire-history-stack-and-start-a-new-activity-on-android
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
+                // make toast indicating success
+                Toast.makeText(UploadActivity.this, "Successfully uploaded!", Toast.LENGTH_SHORT).show();
+
                 startActivity(intent);
 
-            } catch (Exception e) {
-                // error
-                e.printStackTrace();
-                Log.d(LOG_TAG, "error: " + e.getMessage());
+            } else {
+
+                // make toast indicating success
+                Toast.makeText(UploadActivity.this, "An error occurred... Error: " + errorMsg, Toast.LENGTH_LONG).show();
 
                 // IF GOT HERE -> FAIL
                 // transition back to upload screen
 
                 finish();
+
             }
 
-            return null;
         }
     }
 
