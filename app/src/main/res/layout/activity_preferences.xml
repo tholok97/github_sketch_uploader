@@ -5,10 +5,90 @@
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android" >
 
+
+    <!-- ACCESS TOKEN AREA -->
+
+    <!-- header -->
     <TextView
-        android:text="I am the preferences activity hello"
+        android:text="Personal access token:"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <TextView
+        android:text="token"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- user access token input -->
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- enter and test -->
+    <Button
+        android:text="test and save token"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- SPACING -->
+    <TextView
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content" />
+
+    <!-- DEFAULTS AREA -->
+
+    <!-- header -->
+    <TextView
+        android:text="Defaults:"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- path (folder) -->
+    <TextView
+        android:text="Folder:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- commit message -->
+    <TextView
+        android:text="Commit message:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- repository -->
+    <TextView
+        android:text="Repository:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- email? -->
+    <!-- username? -->
+
+    <!-- save defaults -->
+    <Button
+        android:text="save defaults"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 
 </android.support.v7.widget.LinearLayoutCompat>
 
