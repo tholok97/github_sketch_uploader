@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- main header -->
+    <TextView
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:text="About"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- sub header -->
+    <TextView
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="Intention"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- text -->
+    <TextView
+        android:padding="10sp"
+        android:text="Encourages sketching on pen and paper during development by making it easier / more acceptable to upload images to Github. The app is an alternative to wasting time in cumbersome drawing/diagramming programs. "
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <!-- sub header -->
+    <TextView
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="Developed by:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- text -->
+    <TextView
+        android:padding="10sp"
+        android:text="Thomas Løkkeborg (thomahl@stud.ntnu.no) in the course IMT3673 - Mobile/Wearable Programming at NTNU Gjøvik."
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- sub header -->
+    <TextView
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="External libraries used:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- text -->
+    <TextView
+        android:padding="10sp"
+        android:text="* org.eclipse.egit.github.core"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <!-- spacing -->
+    <TextView
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+    <!-- text -->
+    <TextView
+        android:autoLink="web"
+        android:textStyle="italic"
+        android:padding="10sp"
+        android:text="For more see https://github.com/tholok97/github_sketch_uploader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+
+</android.support.v7.widget.LinearLayoutCompat>

@@ -32,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.b_about:
-                Toast.makeText(this, "Not implemented", Toast.LENGTH_SHORT).show();
+                Intent aboutIntent = new Intent(this, AboutActivity.class);
+                startActivity(aboutIntent);
                 break;
 
             default:
