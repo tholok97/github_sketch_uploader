@@ -27,6 +27,7 @@
             <!-- preview of picture to be uploaded -->
             <ImageView
                 android:id="@+id/iw_preview"
+                android:src="@drawable/placeholder"
                 android:layout_width="match_parent"
                 android:layout_height="400sp" />
 
