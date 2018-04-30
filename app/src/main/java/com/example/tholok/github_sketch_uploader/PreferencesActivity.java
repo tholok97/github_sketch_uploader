@@ -19,11 +19,11 @@ public class PreferencesActivity extends AppCompatActivity {
     private EditText etRepository;
     private EditText etBranch;
 
-    private static String PREFS_TOKEN           = "token";
-    private static String PREFS_FOLDER          = "folder";
-    private static String PREFS_COMMIT_MESSAGE  = "commit_message";
-    private static String PREFS_REPOSITORY      = "repository";
-    private static String PREFS_BRANCH          = "branch";
+    public static String PREFS_TOKEN           = "token";
+    public static String PREFS_FOLDER          = "folder";
+    public static String PREFS_COMMIT_MESSAGE  = "commit_message";
+    public static String PREFS_REPOSITORY      = "repository";
+    public static String PREFS_BRANCH          = "branch";
 
     private SharedPreferences prefs;
 

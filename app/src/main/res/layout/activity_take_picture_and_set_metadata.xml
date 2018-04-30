@@ -97,6 +97,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+            <TextView
+                android:text="Commit Message:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/et_commitmessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
             <!-- for spacing -->
             <TextView
                 android:layout_width="match_parent"

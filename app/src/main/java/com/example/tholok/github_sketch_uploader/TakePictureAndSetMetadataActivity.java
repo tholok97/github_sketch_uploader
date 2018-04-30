@@ -1,11 +1,13 @@
 package com.example.tholok.github_sketch_uploader;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
@@ -15,7 +17,9 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -31,6 +35,15 @@ public class TakePictureAndSetMetadataActivity extends AppCompatActivity {
 
     String mCurrentPhotoPath;
 
+    private SharedPreferences prefs;
+
+    private EditText etBranch;
+    private EditText etRepository;
+    private EditText etPath;
+    private EditText etCommitMessage;
+
+    private boolean hasTakenPicture = false;
+
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
     @Override
@@ -43,6 +56,19 @@ public class TakePictureAndSetMetadataActivity extends AppCompatActivity {
 
         // set placeholder pic
         imageView.setImageResource(R.drawable.ic_launcher_background);
+
+        // prepare prefs
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+
+        // prepare components
+        etBranch = (EditText) findViewById(R.id.et_branch);
+        etRepository = (EditText) findViewById(R.id.et_repository);
+        etPath = (EditText) findViewById(R.id.et_path);
+        etCommitMessage = (EditText) findViewById(R.id.et_commitmessage);
+
+        // load fields from defaults stored in prefs
+        loadFieldsFromPrefs();
     }
 
 
@@ -139,11 +165,18 @@ public class TakePictureAndSetMetadataActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+
+            // set the preview pic
             setPic();
+
+            // store that has taken picture
+            hasTakenPicture = true;
         }
     }
 
     public void onButtonClick(View view) {
+
+        Log.d(LOG_TAG, "clicked");
 
         // react on type of button that was clicked
         switch (view.getId()) {
@@ -168,6 +201,23 @@ public class TakePictureAndSetMetadataActivity extends AppCompatActivity {
 
         Log.d(LOG_TAG, "starting upload flow");
 
+
+        // load token
+        String token = prefs.getString(PreferencesActivity.PREFS_TOKEN, "");
+
+        // EARLY RETURN IF NOT APPROPRIATE TO UPLOAD YET:
+        if (token == "") {
+
+            // no token stored
+            Toast.makeText(this, "No token stored on device. Cannot upload", Toast.LENGTH_SHORT).show();
+            return;
+        } else if (!hasTakenPicture) {
+
+            // hasn't taken picture yet
+            Toast.makeText(this, "Please take a picture first", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
         Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath);
 
@@ -181,16 +231,35 @@ public class TakePictureAndSetMetadataActivity extends AppCompatActivity {
 
         // put extra data for github upload
         intent.putExtra(UploadActivity.EXTRA_BITMAP_BASE64,     base64PictureString);
-        intent.putExtra(UploadActivity.EXTRA_USERNAME,          "tholok97");
-        intent.putExtra(UploadActivity.EXTRA_REPOSITORY,        "test");
-        intent.putExtra(UploadActivity.EXTRA_TOKEN,             "REMOVEDFORPUSH");
-        intent.putExtra(UploadActivity.EXTRA_PATH,              "data/test.jpg");
-        intent.putExtra(UploadActivity.EXTRA_BRANCH,            "branchtest");
-        intent.putExtra(UploadActivity.EXTRA_COMMIT_MESSAGE,    "a commit message ");
-        intent.putExtra(UploadActivity.EXTRA_EMAIL,             "thomahl@stud.ntnu.no");
+        intent.putExtra(UploadActivity.EXTRA_USERNAME,          "tholok97");                    // HARDCODED FOR NOW
+        intent.putExtra(UploadActivity.EXTRA_REPOSITORY,        etRepository.getText().toString());
+        intent.putExtra(UploadActivity.EXTRA_TOKEN,             token);
+        intent.putExtra(UploadActivity.EXTRA_PATH,              etPath.getText().toString());
+        intent.putExtra(UploadActivity.EXTRA_BRANCH,            etBranch.getText().toString());
+        intent.putExtra(UploadActivity.EXTRA_COMMIT_MESSAGE,    etCommitMessage.getText().toString());
+        intent.putExtra(UploadActivity.EXTRA_EMAIL,             "thomahl@stud.ntnu.no");        // HARDCODED FOR NOW
+
 
         startActivity(intent);
     }
 
+    void loadFieldsFromPrefs() {
+
+        etBranch.setText(prefs.getString(PreferencesActivity.PREFS_BRANCH, ""));
+        etRepository.setText(prefs.getString(PreferencesActivity.PREFS_REPOSITORY, ""));
+        etCommitMessage.setText(prefs.getString(PreferencesActivity.PREFS_COMMIT_MESSAGE, ""));
+
+        String filenameSuggestion = generateFileNameSuggestion();
+        String path = prefs.getString(PreferencesActivity.PREFS_FOLDER, "");
+
+        etPath.setText(path + filenameSuggestion);
+    }
+
+    String generateFileNameSuggestion() {
+
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+
+        return "sketch_" + timeStamp + ".jpg";
+    }
 
 }
