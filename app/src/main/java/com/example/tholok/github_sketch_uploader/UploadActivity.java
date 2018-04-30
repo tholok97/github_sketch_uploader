@@ -50,6 +50,9 @@ public class UploadActivity extends AppCompatActivity {
 
         if (b != null) {
 
+            // execute upload task with info from extras
+            // (These extras are expected to be checked by the activity launching an intent to this
+            // activity, so input validation is not done here)
             new PushBase64PictureToRepositoryTask().execute(
                     b.getString(UploadActivity.EXTRA_BITMAP_BASE64),
                     b.getString(UploadActivity.EXTRA_USERNAME),
