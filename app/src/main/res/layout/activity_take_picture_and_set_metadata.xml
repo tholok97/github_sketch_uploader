@@ -44,14 +44,16 @@
 
             <!-- PLACEHOLDER -->
             <TextView
-                android:text="Compression options:"
+                android:text="Compression level:"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <Button
-                android:text="COMPRESSION OPTIONS. MORE COMING"
+            <SeekBar
+                android:progress="40"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+
 
             <!-- for spacing -->
             <TextView

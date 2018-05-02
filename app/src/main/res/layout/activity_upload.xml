@@ -2,6 +2,7 @@
 <android.support.v7.widget.LinearLayoutCompat
     android:orientation="vertical"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android" >
 
@@ -27,8 +28,8 @@
     same data as shown in previous activity? (file size, ...)
     -->
     <TextView
-        android:text="Info about upload will show up here"
-        android:layout_width="match_parent"
+        android:text="[upload stats]"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <!-- to fill space -->

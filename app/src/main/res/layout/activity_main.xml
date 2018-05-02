@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.LinearLayoutCompat
     android:orientation="vertical"
+    android:gravity="center"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android" >
@@ -8,8 +9,21 @@
     <!-- SOME KIND OF HEADER HERE -->
     <TextView
         android:textSize="40dp"
-        android:text="SUPER DUPER GITHUB SKETCH UPLOAD APP!!!"
+        android:text="[logo]"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!-- SPACING -->
+    <TextView
+        android:layout_weight="1"
         android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+    <!-- STATS? -->
+    <TextView
+        android:textSize="40dp"
+        android:text="[stats]"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <!-- SPACING -->
