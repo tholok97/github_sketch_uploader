@@ -69,11 +69,11 @@ public class PreferencesActivity extends AppCompatActivity {
      */
     void loadFieldsFromPreferences() {
 
-        etToken.setText(prefs.getString(PREFS_TOKEN,                    "token"));
-        etFolder.setText(prefs.getString(PREFS_FOLDER,                  "folder"));
-        etCommitMessage.setText(prefs.getString(PREFS_COMMIT_MESSAGE,   "commitMessage"));
-        etRepository.setText(prefs.getString(PREFS_REPOSITORY,          "repository"));
-        etBranch.setText(prefs.getString(PREFS_BRANCH,                  "branch"));
+        etToken.setText(prefs.getString(PREFS_TOKEN,                    ""));
+        etFolder.setText(prefs.getString(PREFS_FOLDER,                  "docs/"));
+        etCommitMessage.setText(prefs.getString(PREFS_COMMIT_MESSAGE,   "Sketch uploaded from \"Github sketch uploader\" app"));
+        etRepository.setText(prefs.getString(PREFS_REPOSITORY,          ""));
+        etBranch.setText(prefs.getString(PREFS_BRANCH,                  "master"));
     }
 
     /**

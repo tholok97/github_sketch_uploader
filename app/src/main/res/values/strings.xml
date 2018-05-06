@@ -16,10 +16,10 @@
     <string name="preferencesactivity_header_personal_access_token">Personal access token:</string>
     <string name="preferencesactivity_token">token:</string>
     <string name="preferencesactivity_header_defaults">Defaults:</string>
-    <string name="subheader_folder">Folder:</string>
+    <string name="subheader_folder">Folder (ending with /):</string>
     <string name="subheader_commit_message">Commit Message:</string>
     <string name="subheader_repository">Repository:</string>
-    <string name="subheader_branch">Branch:</string>
+    <string name="subheader_branch">Branch (WIP. Only master will be used for now):</string>
     <string name="preferencesactivity_button_save_defaults">Save defaults</string>
     <string name="preferencesactivity_button_save_token">Test and save token</string>
     <string name="takepictureandsetmetadataactivity_button_take_picture">Take picture</string>

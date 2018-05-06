@@ -49,7 +49,8 @@
                 android:text="@string/takepictureandsetmetadataactivity_subheader_compression_level" />
 
             <SeekBar
-                android:progress="40"
+                android:id="@+id/sb_compression_level"
+                android:progress="80"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

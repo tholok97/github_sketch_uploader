@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Environment;
@@ -19,10 +21,12 @@ import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,6 +36,7 @@ public class TakePictureAndSetMetadataActivity extends AppCompatActivity {
     private static String LOG_TAG = "TakePictureAndSetMetadataActivity";
 
     private ImageView imageView;
+    private SeekBar sbCompressionLevel;
 
     String mCurrentPhotoPath;
 
@@ -46,23 +51,24 @@ public class TakePictureAndSetMetadataActivity extends AppCompatActivity {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
+    private Bitmap imageBitmap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_take_picture_and_set_metadata);
-
-        // set component properties
-        imageView = (ImageView) findViewById(R.id.iw_preview);
 
         // prepare prefs
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
 
         // prepare components
+        imageView = (ImageView) findViewById(R.id.iw_preview);
         etBranch = (EditText) findViewById(R.id.et_branch);
         etRepository = (EditText) findViewById(R.id.et_repository);
         etPath = (EditText) findViewById(R.id.et_path);
         etCommitMessage = (EditText) findViewById(R.id.et_commitmessage);
+        sbCompressionLevel = (SeekBar) findViewById(R.id.sb_compression_level);
 
         // load fields from defaults stored in prefs
         loadFieldsFromPrefs();
@@ -102,14 +108,15 @@ public class TakePictureAndSetMetadataActivity extends AppCompatActivity {
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
 
-            // Create the File where the photo should go
+            // (try and) create the File where the photo should go
             File photoFile = null;
             try {
                 photoFile = createImageFile();
             } catch (IOException ex) {
-                // Error occurred while creating the File
-                // TODO
+                ex.printStackTrace();
+                Log.d(LOG_TAG, "Couldn't create file to put image in!");
             }
+
             // Continue only if the File was successfully created
             if (photoFile != null) {
                 Uri photoURI = FileProvider.getUriForFile(this,
@@ -123,12 +130,48 @@ public class TakePictureAndSetMetadataActivity extends AppCompatActivity {
 
 
     /**
-     * fetch the pic taken with the camera intent, scale it to fit the preview,
-     * and point the preview to it
-     *
-     * Taken from: https://developer.android.com/training/camera/photobasics.html
+     * Handle returned values from image capture intent intent
+     * @param requestCode
+     * @param resultCode
+     * @param data
      */
-    private void setPic() {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+
+            // read the taken pic
+            readAndPrepareTakenPicture();
+
+            // rotate if necessary
+            rotateTakenPicIfNecessary();
+
+            // set the preview pic
+            imageView.setImageBitmap(imageBitmap);
+
+            // store that has taken picture
+            hasTakenPicture = true;
+        }
+    }
+
+    /**
+     * Rotate a given image by a given angle
+     *
+     *taken from: https://stackoverflow.com/questions/14066038/why-does-an-image-captured-using-camera-intent-gets-rotated-on-some-devices-on-a
+     */
+    private Bitmap rotateImage(Bitmap source, float angle) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
+                matrix, true);
+    }
+
+    /**
+     * fetch the pic taken with the camera intent, scale it to fit the preview,
+     * and return it
+     *
+     * Inspired by: https://developer.android.com/training/camera/photobasics.html
+     */
+    private void readAndPrepareTakenPicture() {
 
         // Get the dimensions of the View
         int targetW = imageView.getWidth();
@@ -150,24 +193,49 @@ public class TakePictureAndSetMetadataActivity extends AppCompatActivity {
         bmOptions.inPurgeable = true;
 
         Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-        imageView.setImageBitmap(bitmap);
+
+        // store bitmap in property
+        imageBitmap = bitmap;
     }
 
+
     /**
-     * Handle returned values from image capture intent intent
-     * @param requestCode
-     * @param resultCode
-     * @param data
+     * Use exif info (hopefully) generated by phone while taking picture to orientate the
+     * picture properly.
+     *
+     * taken from: https://stackoverflow.com/questions/14066038/why-does-an-image-captured-using-camera-intent-gets-rotated-on-some-devices-on-a
      */
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+    private void rotateTakenPicIfNecessary() {
 
-            // set the preview pic
-            setPic();
+        // try and rotate picture based on orientation stored in exif
+        try {
 
-            // store that has taken picture
-            hasTakenPicture = true;
+            ExifInterface ei = new ExifInterface(mCurrentPhotoPath);
+            int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+                    ExifInterface.ORIENTATION_UNDEFINED);
+
+            switch(orientation) {
+
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    imageBitmap = rotateImage(imageBitmap, 90);
+                    break;
+
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    imageBitmap = rotateImage(imageBitmap, 180);
+                    break;
+
+                case ExifInterface.ORIENTATION_ROTATE_270:
+                    imageBitmap = rotateImage(imageBitmap, 270);
+                    break;
+
+                case ExifInterface.ORIENTATION_NORMAL:
+                default:
+                    // orientation is correct. NOP
+                    break;
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Log.d(LOG_TAG, "Was unable to set orientation of picture from exif");
         }
     }
 
@@ -198,7 +266,6 @@ public class TakePictureAndSetMetadataActivity extends AppCompatActivity {
 
         Log.d(LOG_TAG, "starting upload flow");
 
-
         // load token
         String token = prefs.getString(PreferencesActivity.PREFS_TOKEN, "");
 
@@ -215,26 +282,34 @@ public class TakePictureAndSetMetadataActivity extends AppCompatActivity {
             return;
         }
 
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath);
+        // determine wanted compression level from progress of seekbar
+        // 100 - X because seekbar is inverted
+        int compressionLevel = 100 - sbCompressionLevel.getProgress();
 
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        // try and store current bitmap to file
+        try {
+            File file = new File(mCurrentPhotoPath);
+            FileOutputStream out = new FileOutputStream(file);
+            imageBitmap.compress(Bitmap.CompressFormat.JPEG, compressionLevel, out);
+            out.flush();
+            out.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Log.d(LOG_TAG, "Couldn't store image for sending to uploadactivity");
+        }
 
-        byte[] byteArray = byteArrayOutputStream.toByteArray();
-        String base64PictureString = Base64.encodeToString(byteArray, Base64.DEFAULT);
-
+        // prepare intent to launch upload activity
         Intent intent = new Intent(this, UploadActivity.class);
 
         // put extra data for github upload
-        intent.putExtra(UploadActivity.EXTRA_BITMAP_BASE64,     base64PictureString);
-        intent.putExtra(UploadActivity.EXTRA_USERNAME,          "tholok97");                    // HARDCODED FOR NOW
+        intent.putExtra(UploadActivity.EXTRA_IMAGE_URI,         mCurrentPhotoPath);
+        intent.putExtra(UploadActivity.EXTRA_USERNAME,          "tholok97");                        // HARDCODED FOR NOW. SHOULD BE GOTTEN BASED ON TOKEN
         intent.putExtra(UploadActivity.EXTRA_REPOSITORY,        etRepository.getText().toString());
         intent.putExtra(UploadActivity.EXTRA_TOKEN,             token);
         intent.putExtra(UploadActivity.EXTRA_PATH,              etPath.getText().toString());
         intent.putExtra(UploadActivity.EXTRA_BRANCH,            etBranch.getText().toString());
         intent.putExtra(UploadActivity.EXTRA_COMMIT_MESSAGE,    etCommitMessage.getText().toString());
-        intent.putExtra(UploadActivity.EXTRA_EMAIL,             "thomahl@stud.ntnu.no");        // HARDCODED FOR NOW
+        intent.putExtra(UploadActivity.EXTRA_EMAIL,             "thomahl@stud.ntnu.no");            // HARDCODED FOR NOW. SHOULD BE GOTTEN BASED ON TOKEN
 
 
         startActivity(intent);

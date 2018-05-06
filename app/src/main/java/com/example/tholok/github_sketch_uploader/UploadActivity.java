@@ -1,9 +1,12 @@
 package com.example.tholok.github_sketch_uploader;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +25,7 @@ import org.eclipse.egit.github.core.service.CommitService;
 import org.eclipse.egit.github.core.service.DataService;
 import org.eclipse.egit.github.core.service.RepositoryService;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -29,7 +33,7 @@ import java.util.List;
 
 public class UploadActivity extends AppCompatActivity {
 
-    public static String EXTRA_BITMAP_BASE64 = "extra_bitmap_base64";
+    public static String EXTRA_IMAGE_URI = "extra_bitmap_base64";
     public static String EXTRA_USERNAME = "extra_username";
     public static String EXTRA_REPOSITORY = "extra_repository";
     public static String EXTRA_TOKEN = "extra_token";
@@ -50,11 +54,21 @@ public class UploadActivity extends AppCompatActivity {
 
         if (b != null) {
 
+            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+            Bitmap bitmap = BitmapFactory.decodeFile(b.getString(UploadActivity.EXTRA_IMAGE_URI));
+
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+
+            byte[] byteArray = byteArrayOutputStream.toByteArray();
+            String base64PictureString = Base64.encodeToString(byteArray, Base64.DEFAULT);
+
+
             // execute upload task with info from extras
             // (These extras are expected to be checked by the activity launching an intent to this
             // activity, so input validation is not done here)
             new PushBase64PictureToRepositoryTask().execute(
-                    b.getString(UploadActivity.EXTRA_BITMAP_BASE64),
+                    base64PictureString,
                     b.getString(UploadActivity.EXTRA_USERNAME),
                     b.getString(UploadActivity.EXTRA_REPOSITORY),
                     b.getString(UploadActivity.EXTRA_TOKEN),
