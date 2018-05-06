@@ -22,6 +22,7 @@ import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
@@ -46,6 +47,7 @@ public class TakePictureAndSetMetadataActivity extends AppCompatActivity {
     private EditText etRepository;
     private EditText etPath;
     private EditText etCommitMessage;
+    private TextView twFilesize;
 
     private boolean hasTakenPicture = false;
 
@@ -69,6 +71,30 @@ public class TakePictureAndSetMetadataActivity extends AppCompatActivity {
         etPath = (EditText) findViewById(R.id.et_path);
         etCommitMessage = (EditText) findViewById(R.id.et_commitmessage);
         sbCompressionLevel = (SeekBar) findViewById(R.id.sb_compression_level);
+        twFilesize = (TextView) findViewById(R.id.tw_filesize);
+
+        // make seekbar update preview on change
+        sbCompressionLevel.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+                // update only if has taken picture
+                if (hasTakenPicture) {
+                    updatePreview();
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
 
         // load fields from defaults stored in prefs
         loadFieldsFromPrefs();
@@ -139,18 +165,89 @@ public class TakePictureAndSetMetadataActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
 
+            /*
+            NOTE that there is a bug somewhere in the next few lines. Sometimes 'imageBitmap' ends
+            up as null when 'updatePreview()' gets called on my physical device. The problem does
+            not appear in the emulator. It might be related to file size.
+             */
+
             // read the taken pic
             readAndPrepareTakenPicture();
 
             // rotate if necessary
             rotateTakenPicIfNecessary();
 
+            // write bitmap back to file to store any scaling and/or rotation done
+            saveBitmapToFile(imageBitmap, mCurrentPhotoPath);
+
             // set the preview pic
-            imageView.setImageBitmap(imageBitmap);
+            updatePreview();
 
             // store that has taken picture
             hasTakenPicture = true;
+        } else {
+            Log.d(LOG_TAG, "Picture was not taken correctly...");
         }
+    }
+
+    /**
+     * Gets current chosen level of compression based on seekbar
+     */
+    private int getLevelOfCompression() {
+
+        // 100 - X because seekbar is inverted
+        return 100 - sbCompressionLevel.getProgress();
+    }
+
+    /**
+     * Show the picture as it will look after upload (with compression applied), and update filesize
+     */
+    private void updatePreview() {
+
+        // FIRST CONVERT INTO BASE64 STRING WITH CHOSEN LEVEL OF COMPRESSION
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        imageBitmap.compress(Bitmap.CompressFormat.JPEG, getLevelOfCompression(), byteArrayOutputStream);
+
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
+        String base64PictureString = Base64.encodeToString(byteArray, Base64.DEFAULT);
+
+
+        // NOW CONVERT BACK TO BITMAP
+
+        byte[] decodedString = Base64.decode(base64PictureString, Base64.DEFAULT);
+        Bitmap decodedBitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+        imageView.setImageBitmap(decodedBitmap);
+
+
+        // UPDATE FILESIZE ESTIMATE
+
+        float kilobytes = byteArray.length / 1000;
+        twFilesize.setText(kilobytes + " kb");
+
+    }
+
+
+    /**
+     * Writes a given bitmap to file with quality 100
+     *
+     * @param bitmap
+     * @param filePath
+     */
+    private static void saveBitmapToFile(Bitmap bitmap, String filePath) {
+
+        try {
+            File file = new File(filePath);
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream); // 100 because compression happens elsewhere
+            fileOutputStream.flush();
+            fileOutputStream.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Log.d(LOG_TAG, "Couldn't write the image to file");
+        }
+
     }
 
     /**
@@ -193,6 +290,9 @@ public class TakePictureAndSetMetadataActivity extends AppCompatActivity {
         bmOptions.inPurgeable = true;
 
         Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+
+
+
 
         // store bitmap in property
         imageBitmap = bitmap;
@@ -282,27 +382,12 @@ public class TakePictureAndSetMetadataActivity extends AppCompatActivity {
             return;
         }
 
-        // determine wanted compression level from progress of seekbar
-        // 100 - X because seekbar is inverted
-        int compressionLevel = 100 - sbCompressionLevel.getProgress();
-
-        // try and store current bitmap to file
-        try {
-            File file = new File(mCurrentPhotoPath);
-            FileOutputStream out = new FileOutputStream(file);
-            imageBitmap.compress(Bitmap.CompressFormat.JPEG, compressionLevel, out);
-            out.flush();
-            out.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            Log.d(LOG_TAG, "Couldn't store image for sending to uploadactivity");
-        }
-
         // prepare intent to launch upload activity
         Intent intent = new Intent(this, UploadActivity.class);
 
         // put extra data for github upload
         intent.putExtra(UploadActivity.EXTRA_IMAGE_URI,         mCurrentPhotoPath);
+        intent.putExtra(UploadActivity.EXTRA_COMPRESSION_LEVEL, getLevelOfCompression());
         intent.putExtra(UploadActivity.EXTRA_USERNAME,          "tholok97");                        // HARDCODED FOR NOW. SHOULD BE GOTTEN BASED ON TOKEN
         intent.putExtra(UploadActivity.EXTRA_REPOSITORY,        etRepository.getText().toString());
         intent.putExtra(UploadActivity.EXTRA_TOKEN,             token);

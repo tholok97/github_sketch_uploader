@@ -43,17 +43,26 @@
             -->
 
             <!-- PLACEHOLDER -->
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/takepictureandsetmetadataactivity_subheader_compression_level" />
 
+            <!-- compression level -->
             <SeekBar
                 android:id="@+id/sb_compression_level"
                 android:progress="80"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+            <!-- show estimated file size -->
+            <TextView
+                android:id="@+id/tw_filesize"
+                android:textSize="30sp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
 
             <!-- for spacing -->

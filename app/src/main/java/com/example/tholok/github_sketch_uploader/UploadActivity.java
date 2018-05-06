@@ -34,6 +34,7 @@ import java.util.List;
 public class UploadActivity extends AppCompatActivity {
 
     public static String EXTRA_IMAGE_URI = "extra_bitmap_base64";
+    public static String EXTRA_COMPRESSION_LEVEL = "extra_compression_level";
     public static String EXTRA_USERNAME = "extra_username";
     public static String EXTRA_REPOSITORY = "extra_repository";
     public static String EXTRA_TOKEN = "extra_token";
@@ -58,7 +59,7 @@ public class UploadActivity extends AppCompatActivity {
             Bitmap bitmap = BitmapFactory.decodeFile(b.getString(UploadActivity.EXTRA_IMAGE_URI));
 
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, b.getInt(UploadActivity.EXTRA_COMPRESSION_LEVEL), byteArrayOutputStream);
 
             byte[] byteArray = byteArrayOutputStream.toByteArray();
             String base64PictureString = Base64.encodeToString(byteArray, Base64.DEFAULT);
