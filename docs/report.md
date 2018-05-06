@@ -26,19 +26,22 @@ In the end I landed on the basic "camera intent" solution, where you ask the pho
 
 #### Interfacing with the Github API
 
-From my research I found four solutions: 
+**From my research I found four solutions:**
 
 1. The first is hand-crafing the communication by using something like "[Volley](https://github.com/google/volley)". I steered away from this approach as I'd like to be able to easily extend my app with more Github API related features in the future. A library would make my life much easier. 
 2. The second is the "[github-api.kohsuke.org](http://github-api.kohsuke.org/)" library. I could not get this to run, so I quickly skipped over to the third option. 
 3. The "[github.jcabi.com](http://github.jcabi.com/)" library seemed promising, boasting good object oriented design and an out-of-the-box mocking server. It crashed at even the most basic examples though, so I gave up on it.
 4. I ended up going with the "[org.eclipse.egit.github.core](https://github.com/eclipse/egit-github/tree/master/org.eclipse.egit.github.core)" library. From what I understand it is used in an official git plugin for the Eclipse IDE, so it seemed credible. After some fiddling to add it as a dependency in Gradle it works smoothly. My only gripe with it is that it seems a tad outdated. It is missing the "Create a file" API call described [here](https://developer.github.com/v3/repos/contents/). I'll discuss this point below.
 
-The most important interaction with the API in the app is adding an image to a Github repository. There are two main ways of doing this, where one is a shortcut of the other. The two processes are described in more detail [here](./general.md).
+The most important interaction with the API in the app is adding an image to a Github repository. There are two main ways of doing this, where one is a shortcut of the other. The two processes are described in more detail [here](./general.md). **Here is a summary**:
 
 1. You can go through long back-and-fourth process of API calls that gives you finer control, but is hard to get your head around. A good explanation (that I found earlier) is [this one](http://www.levibotelho.com/development/commit-a-file-with-the-github-api/). I've done a write-up on this back-and-fourth in the [general](./general.md) page.
 2. You can add the image using the "Create a file" contents API call described [here](https://developer.github.com/v3/repos/contents/). This let's you create one file in one commit using only one API call.
 
 As I'm currently only committing one image at a time anyways, I initially wanted to use the second approach. The libray I chose lacked this functionality though, so I had to go with the first solution. In the long run I think that one is better anyways, as it allows multiple images in one commit down the line.
+
+To communicate with the Github API the app needs to authenticate. It can either do this through a username/password combination, or through a "personal access token". As the app is targeted at developers the token solution seemed most appropriate. Github allows users to generate tokens with access to specific functionality, so security-wise it seems appropriate as well.
+
 
 #### Compression
 
@@ -62,15 +65,40 @@ It consists of these five activities:
 
 ## Development process
 
-I used the Github issue-tracker with feature-branches wherever appropriate.
+As mentioned I spent some time researching before starting this codebase. While coding I used the Github issue-tracker, with feature-branches where appropriate. I did most of my testing in the emulator, as my phone refuses to log with `Log.d`.
 
 ## Features
 
 ### Done
 
-### Planned
+* The image preview is updated in realtime as you adjust compression level.
+* The estimated file size is updated in realtime as you adjust compression level.
+* Can set default values to speed up uploading process.
+* Suggests uniquely generated filename to the user during upload process. 
+* All displayed strings are separated out into `strings.xml` to prepare for localization.
+
+
+### TODO
+
+* Interactive tutorial upon first startup that introduces user to the app and helps them set their token.
+* Replace placeholders in MainActivity and UploadActivity.
+* Support chosing what branch to target. Currently forces master.
+* Add support for Norwegian
+* Improve UX by fully utilizing the Github API:
+    * Test token on input to ensure that it works.
+    * Suggest repositories and branches while uploading. 
+* Compression option that forces black and white. Targeted at pen and paper sketches.
+* Support mass-upload of pictures.
+* Support taking pictures from gallery of phone. (Pictures taken outside of app, screengrabs?)
+
 
 ## Known bugs
+
+*These are documented in the issue-tracker*
+
+* **App sometimes crashes after taking picture while running on phyical device**. This is an annoying bug that makes it hard to test on a phyical device. I do not think it has to do with file size. I didn't notice this bug until right around my presentation, so haven't had much time to work on it. You should be able to avoid it by retrying until successful.
+* **App sometimes crashes after clicked upload button in TakePictureAndSetMetadataActivity while running on phyical device**. This is a rare bug. It might be related to the above issue.
+* **The compression level seekbar is horribly laggy**. This could possibly be fixed by doing the on-change work in an AsyncTask, but I have not prioritized a fix.
 
 ## Conclusion ("What have I learned?")
 
