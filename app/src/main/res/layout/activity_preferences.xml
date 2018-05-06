@@ -10,17 +10,17 @@
 
     <!-- header -->
     <TextView
-        android:text="Personal access token:"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/preferencesactivity_header_personal_access_token"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <TextView
-        android:text="token"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/preferencesactivity_token" />
 
     <!-- user access token input -->
     <EditText
@@ -30,11 +30,11 @@
 
     <!-- enter and test -->
     <Button
-        android:onClick="onButtonClick"
         android:id="@+id/b_testandsave"
-        android:text="test and save token"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:onClick="onButtonClick"
+        android:text="@string/preferencesactivity_button_save_token" />
 
     <!-- SPACING -->
     <TextView
@@ -55,9 +55,9 @@
 
     <!-- path (folder) -->
     <TextView
-        android:text="Folder:"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/subheader_folder" />
 
     <EditText
         android:id="@+id/et_folder"
@@ -66,9 +66,9 @@
 
     <!-- commit message -->
     <TextView
-        android:text="Commit message:"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/subheader_commit_message" />
 
     <EditText
         android:id="@+id/et_commitmessage"
@@ -77,9 +77,9 @@
 
     <!-- repository -->
     <TextView
-        android:text="Repository:"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/subheader_repository" />
 
     <EditText
         android:id="@+id/et_repository"
@@ -88,9 +88,9 @@
 
     <!-- repository -->
     <TextView
-        android:text="Branch:"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/subheader_branch" />
 
     <EditText
         android:id="@+id/et_branch"
@@ -103,10 +103,10 @@
     <!-- save defaults -->
     <Button
         android:id="@+id/b_savedefaults"
-        android:onClick="onButtonClick"
-        android:text="save defaults"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:onClick="onButtonClick"
+        android:text="@string/preferencesactivity_button_save_defaults" />
 
 
 </android.support.v7.widget.LinearLayoutCompat>

@@ -28,9 +28,9 @@
     same data as shown in previous activity? (file size, ...)
     -->
     <TextView
-        android:text="[upload stats]"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/uploadactivity_placeholder_upload_info" />
 
     <!-- to fill space -->
     <TextView

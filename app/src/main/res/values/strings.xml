@@ -1,3 +1,31 @@
 <resources>
     <string name="app_name">github_sketch_uploader</string>
+    <string name="logo_placeholder">[logo]</string>
+    <string name="stats_placeholder">[stats]</string>
+    <string name="mainactivity_button_upload">Upload new sketch</string>
+    <string name="mainactivity_button_preferences">Preferences</string>
+    <string name="mainactivity_button_about">About</string>
+    <string name="aboutactivity_header">About</string>
+    <string name="aboutactivity_subheader1">Intention</string>
+    <string name="aboutactivity_purpose_of_app">Encourages sketching on pen and paper during development by making it easier / more acceptable to upload images to Github. The app is an alternative to wasting time in cumbersome drawing/diagramming programs.</string>
+    <string name="aboutactivity_subheader2">Developed by:</string>
+    <string name="aboutactivity_developed_by_text">Thomas Løkkeborg (thomahl@stud.ntnu.no) in the course IMT3673 - Mobile/Wearable Programming at NTNU Gjøvik.</string>
+    <string name="aboutactivity_subheader3">External libraries used:</string>
+    <string name="aboutactivity_libraries_used_text">* org.eclipse.egit.github.core</string>
+    <string name="aboutactivity_for_more_see">For more see https://github.com/tholok97/github_sketch_uploader</string>
+    <string name="preferencesactivity_header_personal_access_token">Personal access token:</string>
+    <string name="preferencesactivity_token">token:</string>
+    <string name="preferencesactivity_header_defaults">Defaults:</string>
+    <string name="subheader_folder">Folder:</string>
+    <string name="subheader_commit_message">Commit Message:</string>
+    <string name="subheader_repository">Repository:</string>
+    <string name="subheader_branch">Branch:</string>
+    <string name="preferencesactivity_button_save_defaults">Save defaults</string>
+    <string name="preferencesactivity_button_save_token">Test and save token</string>
+    <string name="takepictureandsetmetadataactivity_button_take_picture">Take picture</string>
+    <string name="takepictureandsetmetadataactivity_subheader_compression_level">Compression level:</string>
+    <string name="takepictureandsetmetadataactivity_header_metadata_options">Metadata options:</string>
+    <string name="subheader_path">Path:</string>
+    <string name="takepictureandsetmetadataactivity_button_upload">Upload</string>
+    <string name="uploadactivity_placeholder_upload_info">[upload info]</string>
 </resources>

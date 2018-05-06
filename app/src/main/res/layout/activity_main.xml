@@ -8,10 +8,10 @@
 
     <!-- SOME KIND OF HEADER HERE -->
     <TextView
-        android:textSize="40dp"
-        android:text="[logo]"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/logo_placeholder"
+        android:textSize="40dp" />
 
     <!-- SPACING -->
     <TextView
@@ -21,10 +21,10 @@
 
     <!-- STATS? -->
     <TextView
-        android:textSize="40dp"
-        android:text="[stats]"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/stats_placeholder"
+        android:textSize="40dp" />
 
     <!-- SPACING -->
     <TextView
@@ -34,26 +34,26 @@
 
     <!-- upload new sketch button -->
     <Button
-        android:onClick="onButtonClick"
         android:id="@+id/b_upload"
-        android:text="upload new sketch"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:onClick="onButtonClick"
+        android:text="@string/mainactivity_button_upload" />
 
     <!-- go to preferences button -->
     <Button
-        android:onClick="onButtonClick"
         android:id="@+id/b_preferences"
-        android:text="preferences"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:onClick="onButtonClick"
+        android:text="@string/mainactivity_button_preferences" />
 
     <!-- go to about button -->
     <Button
-        android:onClick="onButtonClick"
         android:id="@+id/b_about"
-        android:text="about"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:onClick="onButtonClick"
+        android:text="@string/mainactivity_button_about" />
 
 </android.support.v7.widget.LinearLayoutCompat>

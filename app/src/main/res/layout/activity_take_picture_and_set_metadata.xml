@@ -19,10 +19,10 @@
             <!-- button for taking new picture -->
             <Button
                 android:id="@+id/b_takepicture"
-                android:text="Take picture"
-                android:onClick="onButtonClick"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:onClick="onButtonClick"
+                android:text="@string/takepictureandsetmetadataactivity_button_take_picture" />
 
             <!-- preview of picture to be uploaded -->
             <ImageView
@@ -44,9 +44,9 @@
 
             <!-- PLACEHOLDER -->
             <TextView
-                android:text="Compression level:"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="@string/takepictureandsetmetadataactivity_subheader_compression_level" />
 
             <SeekBar
                 android:progress="40"
@@ -63,17 +63,17 @@
             <!-- METADATA OPTIONS -->
 
             <TextView
-                android:layout_marginBottom="10dp"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:text="Metadata options:"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="@string/takepictureandsetmetadataactivity_header_metadata_options"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
             <TextView
-                android:text="Repository:"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="@string/subheader_repository" />
 
             <EditText
                 android:id="@+id/et_repository"
@@ -81,9 +81,9 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:text="Branch:"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="@string/subheader_branch" />
 
             <EditText
                 android:id="@+id/et_branch"
@@ -91,9 +91,9 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:text="Path:"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="@string/subheader_path" />
 
             <EditText
                 android:id="@+id/et_path"
@@ -101,9 +101,9 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:text="Commit Message:"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="@string/subheader_commit_message" />
 
             <EditText
                 android:id="@+id/et_commitmessage"
@@ -118,11 +118,11 @@
 
             <!-- upload the thing! -->
             <Button
-                android:text="Upload!"
-                android:onClick="onButtonClick"
                 android:id="@+id/b_upload"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:onClick="onButtonClick"
+                android:text="@string/takepictureandsetmetadataactivity_button_upload" />
 
 
         </LinearLayout>
