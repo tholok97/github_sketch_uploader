@@ -1,3 +1,7 @@
+*The following is a report of the project as it stood at commit COMMIT*
+
+---
+
 # Report
 
 In this report I'll discuss topics around my project. First I'd like explain the background behind the project, as I did in the presentation. Then I'll get into the design, development process, features and known bugs, before I end with my conclusion.
@@ -5,8 +9,6 @@ In this report I'll discuss topics around my project. First I'd like explain the
 ## Background
 
 I like diagrams as a part of the development process, but I don't like big heavy diagramming programs. I'd rather sketch it out on paper, and put that under version control instead. This is something I've been doing to a degree for a while now, but currently it's a cumbersome process to get paper sketches under version control. This is where my project comes in. This app seeks to make it easy to push paper sketches to Github, while providing compression to make the process less painfull for git.
-
-*I view this project as a prototype for the final app, and it serves this purpose well.*
 
 ## Design
 
@@ -35,7 +37,7 @@ In the end I landed on the basic "camera intent" solution, where you ask the pho
 
 The most important interaction with the API in the app is adding an image to a Github repository. There are two main ways of doing this, where one is a shortcut of the other. The two processes are described in more detail [here](./general.md). **Here is a summary**:
 
-1. You can go through long back-and-fourth process of API calls that gives you finer control, but is hard to get your head around. A good explanation (that I found earlier) is [this one](http://www.levibotelho.com/development/commit-a-file-with-the-github-api/). I've done a write-up on this back-and-fourth in the [general](./general.md) page.
+1. You can go through long back-and-fourth process of API calls that gives you finer control, but is hard to get your head around. A good explanation (that I wish found earlier) is [this one](http://www.levibotelho.com/development/commit-a-file-with-the-github-api/). I've done a write-up on this back-and-fourth in the [general](./general.md) page.
 2. You can add the image using the "Create a file" contents API call described [here](https://developer.github.com/v3/repos/contents/). This let's you create one file in one commit using only one API call.
 
 As I'm currently only committing one image at a time anyways, I initially wanted to use the second approach. The libray I chose lacked this functionality though, so I had to go with the first solution. In the long run I think that one is better anyways, as it allows multiple images in one commit down the line.
@@ -76,7 +78,7 @@ As mentioned I spent some time researching before starting this codebase. While 
 * Can set default values to speed up uploading process.
 * Suggests uniquely generated filename to the user during upload process. 
 * All displayed strings are separated out into `strings.xml` to prepare for localization.
-
+* Can upload taken image with given compression level to given Github repository. 
 
 ### TODO
 
@@ -91,7 +93,6 @@ As mentioned I spent some time researching before starting this codebase. While 
 * Support mass-upload of pictures.
 * Support taking pictures from gallery of phone. (Pictures taken outside of app, screengrabs?)
 
-
 ## Known bugs
 
 *These are documented in the issue-tracker*
@@ -100,12 +101,9 @@ As mentioned I spent some time researching before starting this codebase. While 
 * **App sometimes crashes after clicked upload button in TakePictureAndSetMetadataActivity while running on phyical device**. This is a rare bug. It might be related to the above issue.
 * **The compression level seekbar is horribly laggy**. This could possibly be fixed by doing the on-change work in an AsyncTask, but I have not prioritized a fix.
 
-## Conclusion ("What have I learned?")
+## Conclusion
 
----
+I did not get to spend as much time with this project as I had hoped to due to the workload from other courses and my jobs. I do, however, think the project as it stands serves as a good prototype for the app I have in mind. The primary functionality I wanted is implemented and working, and the only thing stopping me personally from using the app fully are the bugs that arise when running on phyical devices. I am hoping to release this app at some point though, and it needs a fair bit of work in UI/UX before that point, as well as bug crushing.
 
-*Task description*
 
-readme file explaining what the project is about, who the authors are, and how the project code is organised, and if there is a need for logins/server-side, explain that.
-
-project report: the short report explaining the development process, the design, what was the project about, what features are included and what is on ToDo list, what was easy, what was hard, and what have you learned. 
+Overall I am very happy about the project. I have a working implementation of an app-idea I've had ever since first opening Microsoft Visio, got experience browsing Java libraries and got presentation experience.
