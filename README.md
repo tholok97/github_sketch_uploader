@@ -20,9 +20,9 @@ Code is structured as per the default Android Studio behavior.
 
 ### Documentation
 
-Documentation is found under the `docs/` directory, as well as in the form of comments inline in the code. 
+Documentation is found under the `docs/` directory, as well as in the form of comments inline in the code. See links below.
 
-### Links
+## Links
 
 * [The report](./docs/report.md)
 * A brief presentation of the project can be found in [this video](http://www.youtube.com/watch?v=Irr-BvYvUn0&t=6m56s) at 6:56 to 14:00
