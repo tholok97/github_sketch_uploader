@@ -10,7 +10,9 @@ This app seeks to make it easier and more acceptable to upload pictures of pen-a
 
 ## Building and running
 
-Clone this repository and open it in Android Studio. You should be able to build and run it without any special considerations. To test the app you'll need to provide a Github personal access token though. See [the report](./docs/report.md) for how to do so.
+Clone this repository and open it in Android Studio. You should be able to build and run it without any special considerations. To test the app you'll need to provide a Github personal access token though. [This tutorial](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/) shows how to generate a token. It needs to have "repo" scope. Below is a step-by-step guide that should work. The linked tutorial goes more in-depth.
+
+**Guide**: Click your profile photo in the upper right corner > Settings > Developer Settings > Personal Access Tokens > Generate new token > Give it "repo" scope > enter token in Preferences activity of app > Profit!
 
 ## Project structure
 

@@ -46,7 +46,7 @@
             "content": "{{base64 content}}"
         }
 
-## How to make commit
+## Doing a commit the hard way:
 
 * Get personal access token
 * Add personal access token to postman header "Authorization" with contents "token {{the-token}}"
