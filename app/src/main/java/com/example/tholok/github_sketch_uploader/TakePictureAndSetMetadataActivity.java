@@ -415,12 +415,12 @@ public class TakePictureAndSetMetadataActivity extends AppCompatActivity {
      */
     private void loadFieldsFromPrefs() {
 
-        etBranch.setText(prefs.getString(PreferencesActivity.PREFS_BRANCH, ""));
-        etRepository.setText(prefs.getString(PreferencesActivity.PREFS_REPOSITORY, ""));
-        etCommitMessage.setText(prefs.getString(PreferencesActivity.PREFS_COMMIT_MESSAGE, ""));
+        etBranch.setText(prefs.getString(PreferencesActivity.PREFS_BRANCH,                  "master"));
+        etRepository.setText(prefs.getString(PreferencesActivity.PREFS_REPOSITORY,          ""));
+        etCommitMessage.setText(prefs.getString(PreferencesActivity.PREFS_COMMIT_MESSAGE,   "Sketch uploaded from \"Github sketch uploader\" app"));
 
         String filenameSuggestion = generateFileNameSuggestion();
-        String path = prefs.getString(PreferencesActivity.PREFS_FOLDER, "");
+        String path = prefs.getString(PreferencesActivity.PREFS_FOLDER,                     "docs/");
 
         etPath.setText(path + filenameSuggestion);
     }
