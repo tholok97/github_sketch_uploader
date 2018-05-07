@@ -28,21 +28,24 @@ In the end I landed on the basic "camera intent" solution, where you ask the pho
 
 #### Interfacing with the Github API
 
-**From my research I found four solutions:**
+From my research I found four solutions:
 
-1. The first is hand-crafing the communication by using something like "[Volley](https://github.com/google/volley)". I steered away from this approach as I'd like to be able to easily extend my app with more Github API related features in the future. A library would make my life much easier. 
-2. The second is the "[github-api.kohsuke.org](http://github-api.kohsuke.org/)" library. I could not get this to run, so I quickly skipped over to the third option. 
-3. The "[github.jcabi.com](http://github.jcabi.com/)" library seemed promising, boasting good object oriented design and an out-of-the-box mocking server. It crashed at even the most basic examples though, so I gave up on it.
-4. I ended up going with the "[org.eclipse.egit.github.core](https://github.com/eclipse/egit-github/tree/master/org.eclipse.egit.github.core)" library. From what I understand it is used in an official git plugin for the Eclipse IDE, so it seemed credible. After some fiddling to add it as a dependency in Gradle it works smoothly. My only gripe with it is that it seems a tad outdated. It is missing the "Create a file" API call described [here](https://developer.github.com/v3/repos/contents/). I'll discuss this point below.
+The first is hand-crafing the communication by using something like "[Volley](https://github.com/google/volley)". I steered away from this approach as I'd like to be able to easily extend my app with more Github API related features in the future. A library would make my life much easier. 
+
+The second is the "[github-api.kohsuke.org](http://github-api.kohsuke.org/)" library. I could not get this to run, so I quickly skipped over to the third option. 
+
+The "[github.jcabi.com](http://github.jcabi.com/)" library seemed promising, boasting good object oriented design and an out-of-the-box mocking server. It crashed at even the most basic examples though, so I gave up on it.
+
+I ended up going with the "[org.eclipse.egit.github.core](https://github.com/eclipse/egit-github/tree/master/org.eclipse.egit.github.core)" library. From what I understand it is used in an official git plugin for the Eclipse IDE, so it seemed credible. After some fiddling to add it as a dependency in Gradle it works smoothly. My only gripe with it is that it seems a tad outdated. It is missing the "Create a file" API call described [here](https://developer.github.com/v3/repos/contents/). I'll discuss this point below.
 
 The most important interaction with the API in the app is adding an image to a Github repository. There are two main ways of doing this, where one is a shortcut of the other. The two processes are described in more detail [here](./general.md). **Here is a summary**:
 
-1. You can go through long back-and-fourth process of API calls that gives you finer control, but is hard to get your head around. A good explanation (that I wish found earlier) is [this one](http://www.levibotelho.com/development/commit-a-file-with-the-github-api/). I've done a write-up on this back-and-fourth in the [general](./general.md) page.
-2. You can add the image using the "Create a file" contents API call described [here](https://developer.github.com/v3/repos/contents/). This let's you create one file in one commit using only one API call.
+1. You can add the image using the "Create a file" contents API call described [here](https://developer.github.com/v3/repos/contents/). This let's you create one file in one commit using only one API call.
+2. You can go through long back-and-fourth process of API calls that gives you finer control, but is hard to get your head around. A good explanation (that I wish found earlier) is [this one](http://www.levibotelho.com/development/commit-a-file-with-the-github-api/). I've done a write-up on this back-and-fourth in the [general](./general.md) page.
 
-As I'm currently only committing one image at a time anyways, I initially wanted to use the second approach. The libray I chose lacked this functionality though, so I had to go with the first solution. In the long run I think that one is better anyways, as it allows multiple images in one commit down the line.
+As I'm currently only committing one image at a time anyways, I initially wanted to use the first approach. The libray I chose lacked this functionality though, so I had to go with the second solution. In the long run I think that one is better anyways, as it allows multiple images in one commit down the line.
 
-To communicate with the Github API the app needs to authenticate. It can either do this through a username/password combination, or through a "personal access token". As the app is targeted at developers the token solution seemed most appropriate. Github allows users to generate tokens with access to specific functionality, so security-wise it seems appropriate as well.
+To communicate with the Github API the app needs to authenticate. It could either do this through a username/password combination, or through a "personal access token". As the app is targeted at developers the token solution seemed most appropriate. Github allows users to generate tokens with access to specific functionality, so security-wise it seems appropriate as well.
 
 
 #### Compression
@@ -60,7 +63,7 @@ The user interface is very barebones. I focused on getting the functionality dow
 It consists of these five activities:
 
 * **AboutActivity**: Displays information around the app to the user, including intention of the app, libraries used and link to Github repo.
-* **MainActivity**: Intended to be the center of the app, where the user can get to the functionality they want. Currently the activity only shows placeholders where I imageine a logo and miscellaneous stats would go.
+* **MainActivity**: Intended to be the center of the app, where the user can get to the functionality they want. Currently the activity only shows placeholders where I imagine a logo and miscellaneous stats would go.
 * **PreferencesActivity**: Let's user set their token and default values to be used during upload. 
 * **TakePictureAndSetMetadataActivity**: This is the meat of the app. Here the user can take a picture of their paper sketch, apply compression to it, determine metadata around the upload and launch the upload activity to do the actual upload.
 * **UploadActivity**: This activity does the heavy lifting of uploading a given sketch to Github. It does this while displaying a soothing spinner to the user. I imagine it could display helpful stats about the upload as well, but currently this is only represented as a placeholder.
@@ -105,5 +108,4 @@ As mentioned I spent some time researching before starting this codebase. While 
 
 I did not get to spend as much time with this project as I had hoped to due to the workload from other courses and my jobs. I do, however, think the project as it stands serves as a good prototype for the app I have in mind. The primary functionality I wanted is implemented and working, and the only thing stopping me personally from using the app fully are the bugs that arise when running on phyical devices. I am hoping to release this app at some point though, and it needs a fair bit of work in UI/UX before that point, as well as bug crushing.
 
-
-Overall I am happy about the project. I have a working implementation of an app-idea I've had ever since first opening Microsoft Visio, got experience browsing Java libraries and got presentation experience.
+Overall I'm happy about the project. I am left with experience browsing Java libraries, more practice presenting and a working implementation of an app-idea I've had ever since first opening Microsoft Visio.
