@@ -70,7 +70,7 @@ It consists of these five activities:
 
 ## Development process
 
-As mentioned I spent some time researching before starting this codebase. While coding I used the Github issue-tracker, with feature-branches where appropriate. I did most of my testing in the emulator, as my phone refuses to log with `Log.d`.
+As mentioned I spent some time researching before starting this codebase. While coding I used the Github issue-tracker, with feature-branches where appropriate. I did most of my testing in the emulator, as my phone refuses to log with `Log.d`. Because of the logging problem I did not notice the bugs described below until late in the project.
 
 ## Features
 
@@ -102,7 +102,7 @@ As mentioned I spent some time researching before starting this codebase. While 
 
 * **App sometimes crashes after taking picture while running on phyical device**. This is an annoying bug that makes it hard to test on a phyical device. I do not think it has to do with file size. I didn't notice this bug until right around my presentation, so haven't had much time to work on it. You should be able to avoid it by retrying until successful.
 * **App sometimes crashes after clicked upload button in TakePictureAndSetMetadataActivity while running on phyical device**. This is a rare bug. It might be related to the above issue.
-* **The compression level seekbar is horribly laggy**. This could possibly be fixed by doing the on-change work in an AsyncTask, but I have not prioritized a fix.
+* **The compression level seekbar is horribly laggy while running on phyical device**. This could possibly be fixed by doing the on-change work in an AsyncTask, but I have not prioritized a fix.
 
 ## Conclusion
 
