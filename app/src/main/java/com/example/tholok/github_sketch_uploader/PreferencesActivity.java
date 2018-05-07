@@ -13,12 +13,14 @@ public class PreferencesActivity extends AppCompatActivity {
 
     private static String LOG_TAG = "PreferencesActivity";
 
+    // input components
     private EditText etToken;
     private EditText etFolder;
     private EditText etCommitMessage;
     private EditText etRepository;
     private EditText etBranch;
 
+    // used for storing in prefs
     public static String PREFS_TOKEN           = "token";
     public static String PREFS_FOLDER          = "folder";
     public static String PREFS_COMMIT_MESSAGE  = "commit_message";
@@ -45,6 +47,11 @@ public class PreferencesActivity extends AppCompatActivity {
         loadFieldsFromPreferences();
     }
 
+    /**
+     * Launch functionality based on which button pressed
+     *
+     * @param view
+     */
     void onButtonClick(View view) {
 
         switch (view.getId()) {

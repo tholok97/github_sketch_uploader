@@ -36,21 +36,24 @@ public class TakePictureAndSetMetadataActivity extends AppCompatActivity {
 
     private static String LOG_TAG = "TakePictureAndSetMetadataActivity";
 
-    private ImageView imageView;
-    private SeekBar sbCompressionLevel;
-
-    String mCurrentPhotoPath;
+    // stores path of current captured image
+    private String mCurrentPhotoPath;
 
     private SharedPreferences prefs;
 
+    // components
+    private ImageView imageView;
+    private SeekBar sbCompressionLevel;
     private EditText etBranch;
     private EditText etRepository;
     private EditText etPath;
     private EditText etCommitMessage;
     private TextView twFilesize;
 
+    // activity needs to know if user has taken picture
     private boolean hasTakenPicture = false;
 
+    // used for launching image capture intent
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
     private Bitmap imageBitmap;
@@ -224,7 +227,7 @@ public class TakePictureAndSetMetadataActivity extends AppCompatActivity {
         // UPDATE FILESIZE ESTIMATE
 
         float kilobytes = byteArray.length / 1000;
-        twFilesize.setText(kilobytes + " kb");
+        twFilesize.setText(kilobytes + " kB");
 
     }
 
@@ -253,7 +256,7 @@ public class TakePictureAndSetMetadataActivity extends AppCompatActivity {
     /**
      * Rotate a given image by a given angle
      *
-     *taken from: https://stackoverflow.com/questions/14066038/why-does-an-image-captured-using-camera-intent-gets-rotated-on-some-devices-on-a
+     * taken from: https://stackoverflow.com/questions/14066038/why-does-an-image-captured-using-camera-intent-gets-rotated-on-some-devices-on-a
      */
     private Bitmap rotateImage(Bitmap source, float angle) {
         Matrix matrix = new Matrix();
@@ -290,9 +293,6 @@ public class TakePictureAndSetMetadataActivity extends AppCompatActivity {
         bmOptions.inPurgeable = true;
 
         Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-
-
-
 
         // store bitmap in property
         imageBitmap = bitmap;
@@ -339,6 +339,11 @@ public class TakePictureAndSetMetadataActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Launch functionality based on which button pressed
+     *
+     * @param view
+     */
     public void onButtonClick(View view) {
 
         Log.d(LOG_TAG, "clicked");
@@ -362,6 +367,11 @@ public class TakePictureAndSetMetadataActivity extends AppCompatActivity {
         }
     }
 
+
+    /**
+     * If ready to upload -> start upload activity with upload info
+     * If not ready to upload -> give message to user
+     */
     public void dispatchUpload() {
 
         Log.d(LOG_TAG, "starting upload flow");
@@ -400,7 +410,10 @@ public class TakePictureAndSetMetadataActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    void loadFieldsFromPrefs() {
+    /**
+     * Set values of fields based on prefs
+     */
+    private void loadFieldsFromPrefs() {
 
         etBranch.setText(prefs.getString(PreferencesActivity.PREFS_BRANCH, ""));
         etRepository.setText(prefs.getString(PreferencesActivity.PREFS_REPOSITORY, ""));
@@ -412,10 +425,13 @@ public class TakePictureAndSetMetadataActivity extends AppCompatActivity {
         etPath.setText(path + filenameSuggestion);
     }
 
-    String generateFileNameSuggestion() {
+    /**
+     * Generate filename suggestion to be given to user during upload
+     * @return
+     */
+    private String generateFileNameSuggestion() {
 
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-
         return "sketch_" + timeStamp + ".jpg";
     }
 

@@ -106,4 +106,4 @@ As mentioned I spent some time researching before starting this codebase. While 
 I did not get to spend as much time with this project as I had hoped to due to the workload from other courses and my jobs. I do, however, think the project as it stands serves as a good prototype for the app I have in mind. The primary functionality I wanted is implemented and working, and the only thing stopping me personally from using the app fully are the bugs that arise when running on phyical devices. I am hoping to release this app at some point though, and it needs a fair bit of work in UI/UX before that point, as well as bug crushing.
 
 
-Overall I am very happy about the project. I have a working implementation of an app-idea I've had ever since first opening Microsoft Visio, got experience browsing Java libraries and got presentation experience.
+Overall I am happy about the project. I have a working implementation of an app-idea I've had ever since first opening Microsoft Visio, got experience browsing Java libraries and got presentation experience.

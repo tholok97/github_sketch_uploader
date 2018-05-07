@@ -86,6 +86,8 @@
                 android:text="@string/subheader_repository" />
 
             <EditText
+                android:maxLines="1"
+                android:inputType="text"
                 android:id="@+id/et_repository"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -96,6 +98,8 @@
                 android:text="@string/subheader_branch" />
 
             <EditText
+                android:maxLines="1"
+                android:inputType="text"
                 android:id="@+id/et_branch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -106,6 +110,8 @@
                 android:text="@string/subheader_path" />
 
             <EditText
+                android:maxLines="1"
+                android:inputType="text"
                 android:id="@+id/et_path"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -116,6 +122,8 @@
                 android:text="@string/subheader_commit_message" />
 
             <EditText
+                android:maxLines="1"
+                android:inputType="text"
                 android:id="@+id/et_commitmessage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

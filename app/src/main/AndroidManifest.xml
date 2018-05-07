@@ -45,39 +45,14 @@
         <activity
             android:name=".TakePictureAndSetMetadataActivity"
             android:screenOrientation="portrait">
-
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
         </activity>
         <activity
             android:name=".UploadActivity"
             android:screenOrientation="portrait">
-
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
         </activity>
         <activity
             android:name=".PreferencesActivity"
             android:screenOrientation="portrait">
-
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
-
         </activity>
         <activity android:name=".AboutActivity"></activity>
     </application>

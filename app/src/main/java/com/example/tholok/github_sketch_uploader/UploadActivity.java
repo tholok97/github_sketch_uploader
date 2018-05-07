@@ -33,6 +33,9 @@ import java.util.List;
 
 public class UploadActivity extends AppCompatActivity {
 
+    private static String LOG_TAG = "UploadActivity";
+
+    // used for organizing bundle
     public static String EXTRA_IMAGE_URI = "extra_bitmap_base64";
     public static String EXTRA_COMPRESSION_LEVEL = "extra_compression_level";
     public static String EXTRA_USERNAME = "extra_username";
@@ -43,7 +46,6 @@ public class UploadActivity extends AppCompatActivity {
     public static String EXTRA_COMMIT_MESSAGE = "extra_commit_message";
     public static String EXTRA_EMAIL = "extra_email";
 
-    private static String LOG_TAG = "UploadActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +55,10 @@ public class UploadActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle b = intent.getExtras();
 
+        // should only be called with bundle..
         if (b != null) {
+
+            // read image and turn into base64 encoded string
 
             BitmapFactory.Options bmOptions = new BitmapFactory.Options();
             Bitmap bitmap = BitmapFactory.decodeFile(b.getString(UploadActivity.EXTRA_IMAGE_URI));
@@ -80,7 +85,7 @@ public class UploadActivity extends AppCompatActivity {
                     b.getString(UploadActivity.EXTRA_USERNAME)
             );
         } else {
-            // should only be called with bundle..
+            Log.d(LOG_TAG, "bundle was null..");
         }
     }
 
@@ -123,6 +128,7 @@ public class UploadActivity extends AppCompatActivity {
                 client.setOAuth2Token(token);
 
                 // based on http://swanson.github.com/blog/2011/07/23/digging-around-the-github-api-take-2.html
+
                 // initialize github client
 
                 Log.d(LOG_TAG, "Starting to do commit thing");
